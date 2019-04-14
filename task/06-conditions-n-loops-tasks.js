@@ -30,10 +30,20 @@
  *
  */
 function getFizzBuzz(num) {
+    if(num%3 === 0 && num%5 === 0){
+        return "FizzBuzz";
+    }
+    else if(num%3 === 0 && num%5 !== 0){
+        return "Fizz";
+    }
+    else if (num%5 === 0 && num%3 !== 0){
+        return "Buzz";
+    }
+
+    else return num;
     throw new Error('Not implemented');
 }
-
-
+//npm test ./test/06-conditions-n-loops-tests.js
 /**
  * Returns the factorial of the specified integer n.
  *
@@ -46,6 +56,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
+    let fac = 1;
+    for (let i =1; i <= n; i++){
+        fac *= i;
+    }
+    return fac;
     throw new Error('Not implemented');
 }
 
@@ -63,6 +78,11 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
+    let sum = 0;
+    for (let i =n1; i <= n2; i++){
+        sum += i;
+    }
+    return sum;
     throw new Error('Not implemented');
 }
 
@@ -82,6 +102,11 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
+    if (a < b+c && b < a+c && c < a+b){
+     return true;
+    }
+else return false;
+
     throw new Error('Not implemented');
 }
 
@@ -166,10 +191,17 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
+    for (let i = 0; i < str.length; i++) {
+        let c = str.charAt(i);
+        if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
+            return c;
+        }
+    }
+    return null;
     throw new Error('Not implemented');
 }
 
-
+//npm test ./test/06-conditions-n-loops-tests.js
 /**
  * Returns the string representation of math interval, specified by two points and include / exclude flags.
  * See the details: https://en.wikipedia.org/wiki/Interval_(mathematics)
@@ -209,6 +241,12 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
+    let newStr;
+    for (let i = str.length-1; i >= 0; i--){
+        newStr += str[i];
+    }
+
+    return newStr.slice(9);
     throw new Error('Not implemented');
 }
 
@@ -226,6 +264,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
+    let rev = '';
+    while (num > 0){
+        rev += num%10;
+        num = Math.floor(num/10);
+    }
+    return +rev;
     throw new Error('Not implemented');
 }
 
@@ -270,6 +314,13 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
+    let sum = 0;
+    while (num > 0){
+        sum += num%10;
+        num = Math.floor(num/10);
+    }
+return Math.floor(sum/10) + sum%10;
+  //  }
     throw new Error('Not implemented');
 }
 
@@ -296,6 +347,25 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
+    let openingBrackets = ['[','(','{','<'];
+    let closingBrackets = [']',')','}','>'];
+    let matchingOpeningBracket, ch;
+    let stack = [];
+    for (let i = 0; i < str.length; i++) {
+        ch = str[i];
+        if (closingBrackets.indexOf(ch) > -1) {
+            matchingOpeningBracket = openingBrackets[closingBrackets.indexOf(ch)];
+            if (stack.length === 0 || (stack.pop() !== matchingOpeningBracket)) {
+                return false;
+            }
+
+        }
+        else {
+            stack.push(ch);
+        }
+    }
+
+    return (stack.length === 0);
     throw new Error('Not implemented');
 }
 
@@ -332,9 +402,43 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
+   /* let mil = endDate - startDate;
+    if (mil <= 45000 ){
+        return 'a few seconds ago';
+    }
+    else if (mil > 45000 && mil <= 90000){
+        return 'a minute ago';
+    }
+    else if (mil > 90000 && mil <= 2700000){
+        return Math.trunc(mil/60000) + ' minutes ago';
+    }
+    else if (mil > 2700000 && mil <= 5400000){
+        return 'an hour ago';
+    }
+    else if (mil > 5400000 && mil <= 79200000){
+        return Math.floor(mil/3600000) + ' hours ago';
+    }
+    else if (mil > 79200000 && mil <= 129600000){
+        return 'a day ago';
+    }
+    else if (mil > 129600000 && mil <= 2160000000){
+        return Math.floor(mil/8640000) + ' days ago';
+    }
+    else if (mil > 2160000000 && mil <= 3888000000){
+        return 'a month ago';
+    }
+    else if (mil > 3888000000 && mil <= 2980800000000){
+        return Math.floor(mil/60000) + ' months ago';
+    }
+    else if (mil > 2980800000000 && mil < 47088000000){
+        return 'a year ago';
+    }
+    else if (mil > 47088000000){
+        return '2 years ago ... 20 years ago';
+    }*/
     throw new Error('Not implemented');
 }
-
+//npm test ./test/06-conditions-n-loops-tests.js
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
