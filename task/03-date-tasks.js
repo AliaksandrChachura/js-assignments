@@ -8,7 +8,7 @@
  *                                                                                          *
  ********************************************************************************************/
 
-
+//npm test ./test/03-date-tests.js
 /**
  * Parses a rfc2822 string date representation into date value
  * For rfc2822 date specification refer to : http://tools.ietf.org/html/rfc2822#page-14
@@ -22,6 +22,8 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
+    let date = new Date(value);
+    return date;
    throw new Error('Not implemented');
 }
 
@@ -37,6 +39,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
+    //let date = new Date(value);
+    return Date.parse(value);//date.toDateString();
    throw new Error('Not implemented');
 }
 
@@ -56,6 +60,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
+    let year = date.getFullYear()
+    //let d = new Date()
+    //let year = date.getFullYear();
+    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
    throw new Error('Not implemented');
 }
 
@@ -76,7 +84,36 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+    let mil = endDate - startDate;
+    let HH = 0, MM = 0, SS = 0, SSS = 0;
+    while (mil >= 3600000) {
+        HH += Math.trunc(mil / 3600000);
+        mil %= 3600000;
+    }
+    while (mil >= 60000) {
+        MM += Math.trunc(mil / 60000);
+        mil %= 60000;
+    }
+
+    while (mil >= 1000) {
+        SS += Math.trunc(mil / 1000);
+        mil %= 1000;
+    }
+    if (mil > 0 ) {
+        SSS += mil;
+    }
+    if (HH < 10) HH = '0' + HH;
+    if (MM < 10) MM = '0' + MM;
+    if (SS < 10) SS = '0' + SS;
+    if (SSS < 100 && SSS > 10) {
+        SSS = '0' + SSS;
+    }
+    else if(SSS < 10){
+        SSS = '00' + SSS;
+    }
+    return HH + ':' + MM + ':' + SS + '.' + SSS;
+
+    throw new Error('Not implemented');
 }
 
 
