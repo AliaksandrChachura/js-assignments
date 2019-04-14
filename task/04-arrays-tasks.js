@@ -590,10 +590,10 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   return arr.concat(indexes);
+  //return arr.concat(indexes);
     throw new Error('Not implemented');
 }
-https://github.com/AliaksandrChachura/js-assignments.git
+//github.com/AliaksandrChachura/js-assignments.git
 
 /**
  * Swaps the head and tail of the specified array:
